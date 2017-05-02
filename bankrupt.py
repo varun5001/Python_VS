@@ -9,19 +9,34 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from pandas.tools.plotting import scatter_matrix
+import qtpy
 
+%matplotlib qt
+%pylab qt
 data = pd.read_csv('E:/MS_US/Spring_2017/MIS6v99_Python/Project/data.csv')
 
 data.info()
 
+data.hist()
+plt.figure()
+
+data.plot(kind='density', subplots=True, layout=(4,4), sharex=False)
+plt.show()
+
 df = pd.DataFrame(data)
+
+sns.boxplot(data=df, orient="h", palette="Set2")
+
+scatter_matrix(df)
+plt.show()
 
 #df = sns.load_dataset("iris")
 sns.pairplot(df, hue="bstatus")
 sns.plt.show()
 
-ax = sns.boxplot(data=df)
-ax = sns.swarmplot(data=df, color=".25")
+sns.boxplot(data=df)
+sns.swarmplot(data=df, color=".25")
 
 def plot_histograms( df , variables , n_rows , n_cols ):
     fig = plt.figure( figsize = ( 16 , 12 ) )
