@@ -26,14 +26,49 @@ plt.show()
 
 df = pd.DataFrame(data)
 
-sns.boxplot(data=df, orient="h", palette="Set2")
+df.info()
+colnames = list(df.columns.values)
+colnames = colnames[2:]
+colnames
+
+for colname in colnames:
+    print(colname)
+    sns.boxplot(x="bstatus", y='trans_mve_td', data=df)
+    sns.stripplot(x="bstatus", y="trans_mve_td", data=df, jitter=True, edgecolor="gray")
+    sns.plt.show()
+
+sns.jointplot(x="bstatus", y="trans_mve_td", data=df, size=5)
+sns.distplot(data['trans_mve_td'], hist=False, rug=True)
+
+sns.kdeplot(data['trans_mve_td'], shade=True)
+sns.plt.show()
+
+x = data['trans_ca_cl']
+sns.kdeplot(x)
+sns.kdeplot(x, bw=.2, label="bw: 0.2")
+sns.kdeplot(x, bw=2, label="bw: 2")
+plt.legend()
+sns.plt.show()
+df_mod = df.drop(df.columns[[0,1]], axis = 1)
+
+df_mod.info()
+
+sns.boxplot(data=df_mod, orient="h", palette="Set2")
+sns.plt.show()
+
 
 scatter_matrix(df)
 plt.show()
 
+
 #df = sns.load_dataset("iris")
-sns.pairplot(df, hue="bstatus")
+sns.pairplot(df_mod)
 sns.plt.show()
+
+g = sns.PairGrid(df)
+g.map_diag(sns.kdeplot)
+g.map_offdiag(sns.kdeplot, cmap="Blues_d", n_levels=6)
+
 
 sns.boxplot(data=df)
 sns.swarmplot(data=df, color=".25")
