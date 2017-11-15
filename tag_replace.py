@@ -23,3 +23,14 @@ json_data = json.dumps(data)
 print(json_data)
 with open("output.json", "w") as file:
     file.write(json_data)
+    
+import mammoth
+
+with open("C:\\cygwin64\\home\\Varun\\test.docx", "rb") as docx_file:
+    result = mammoth.convert_to_html(docx_file)
+    html = result.value # The generated HTML
+    messages = result.messages
+with open("output_new.html", "w") as file:
+    file.write(str(html))
+
+print(html)
